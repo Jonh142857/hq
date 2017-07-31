@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head"></head>
+<body>
+    <nav th:replace="layout :: header"></nav>
+	
+    <div class="container main-content list">
+    	<div th:if="${success}" class="row alert alert-success alert-dismissible">
+	        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <span th:text="${success}"></span>
+	    </div>
+    	
+    	<th:block th:if="${#lists.isEmpty(tintucs)}">
+		    <h3>Không có hình nào</h3>
+		</th:block>
+		<h1 align="center">QUẢN LÝ HÌNH ẢNH</h1>
+        <th:block th:unless="${#lists.isEmpty(tintucs)}">
+            <div class="row">
+                <a th:href="@{/hinh/create}" class="btn btn-success pull-left">
+                	<span class="glyphicon glyphicon-plus"></span> Thêm hình mới
+               	</a>
+                <form class="form-inline pull-right" action="#" th:action="@{/hinh/search}" method="GET">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="q" 
+                            placeholder="Tìm tên hình" />
+                    </div>
+                    <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+                </form>
+            </div>
+            <div class="row">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Tên hình</th>
+                            <th>Link Hình</th>
+                            <th>Album</th>
+                            <th>Sửa</th>
+                            <th>Xóa</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="tintuc,iterStat : ${tintucs}">
+                            <td th:text="${iterStat.count}"></td>
+                            <td th:text="${tintuc.name}"></td>
+                            <td><img width="100px" height="75px" th:src="@{${tintuc.linkhinh}}" /></td>
+                            
+                            <div th:switch="${tintuc.idnguon}">
+								<div th:each="nguon: ${nguons}">
+									<td th:case="${nguon.id}" th:text="${nguon.name}"></td>
+								</div>
+							</div>
+                            <td><a th:href="@{/hinh/{id}/edit(id=${tintuc.id})}"><span class="glyphicon glyphicon-pencil"></span></a></td>
+                            <td><a th:href="@{/hinh/{id}/delete(id=${tintuc.id})}"><span class="glyphicon glyphicon-trash"></span></a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </th:block>
+    </div>
+</body>
+</html>

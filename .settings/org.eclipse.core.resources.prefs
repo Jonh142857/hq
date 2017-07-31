@@ -1,0 +1,11 @@
+eclipse.preferences.version=1
+encoding//src/main/java=UTF-8
+encoding//src/main/resources=UTF-8
+encoding//src/main/resources/static/css/style.css=UTF-8
+encoding//src/main/resources/templates/index.html=UTF-8
+encoding//src/main/resources/templates/nguon_form.html=UTF-8
+encoding//src/main/resources/templates/nguon_list.html=UTF-8
+encoding//src/main/resources/templates/tintuc_form.html=UTF-8
+encoding//src/main/resources/templates/tintuc_list.html=UTF-8
+encoding//src/test/java=UTF-8
+encoding/<project>=UTF-8

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head">
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<body>
+	<!-- Top menu -->
+	<nav th:replace="layout :: header"></nav>
+	<br />
+	<br />
+	<br />
+	<form class="form-inline pull-right" action="#" th:action="@{/search}"
+		method="GET">
+		<div class="form-group">
+			<input type="text" class="form-control" name="q"
+				placeholder="Tìm tên hình" />
+		</div>
+		<button type="submit" class="btn btn-primary">Tìm kiếm</button>
+	</form>
+	<br/><br/>
+	<div class="container">
+		<div id="myCarousel" class="carousel slide" data-ride="carousel">
+			<!-- Indicators -->
+			<ol class="carousel-indicators">
+				<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+				<li data-target="#myCarousel" data-slide-to="1"></li>
+				<li data-target="#myCarousel" data-slide-to="2"></li>
+			</ol>
+
+			<!-- Wrapper for slides -->
+			<div class="carousel-inner">
+				<div class="item active">
+					<img src="https://i.ytimg.com/vi/xEuHOeAZkOA/maxresdefault.jpg" alt="Los Angeles" style="width: 100%;"/>
+				</div>
+
+				<div class="item">
+					<img src="http://files.vforum.vn/2014/T06/img/diendanbaclieu-119428-tu-the-ngu.jpg" alt="Chicago" style="width: 100%;"/>
+				</div>
+
+				<div class="item">
+					<img src="https://i.ytimg.com/vi/K5_qRnlkhGQ/maxresdefault.jpg" alt="New york" style="width: 100%;"/>
+				</div>
+			</div>
+			<!-- Left and right controls -->
+			<a class="left carousel-control" href="#myCarousel" data-slide="prev">
+				<span class="glyphicon glyphicon-chevron-left"></span> <span
+				class="sr-only">Previous</span>
+			</a> <a class="right carousel-control" href="#myCarousel"
+				data-slide="next"> <span
+				class="glyphicon glyphicon-chevron-right"></span> <span
+				class="sr-only">Next</span>
+			</a>
+		</div>
+	</div>
+	<br/>
+	<div th:each="tintuc,iterStat:${tintucs}">
+		<div>
+			<div class="col-sm-6 col-md-4">
+				<div class="thumbnail">
+					<img width="350px" th:src="@{${tintuc.linkhinh}}" />
+					<div class="caption">
+						<h3 th:text="${tintuc.name}"></h3>
+						<!--id Model tương ứng với id sản phẩm -->
+						<a class="btn btn-primary" data-toggle="modal"
+							th:attr="data-target='#'+'hinh'+${tintuc.id}">Xem Chi Tiêt</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Modal Sản Phẩm -->
+		<div class="modal fade" th:id="'hinh'+${tintuc.id}">
+			<!--id Model tương ứng với id sản phẩm -->
+			<div class="modal-dialog">
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+					<div class="modal-body">
+						<img width="500px" th:src="@{${tintuc.linkhinh}}" />
+						<h4 th:text="${tintuc.name}"></h4>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- /Modal -->
+	</div>
+	<nav th:replace="layout :: footer"></nav>
+</body>
+</html>

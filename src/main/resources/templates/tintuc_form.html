@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head"></head>
+<body>
+	<nav th:replace="layout :: header"></nav>
+
+	<div class="container main-content form">
+	<h1>HÌNH ẢNH</h1>
+		<div class="row">
+			<form action="#" th:action="@{/hinh/save}" th:object="${tintuc}"
+				method="POST" novalidate="novalidate">
+				<input type="hidden" th:field="*{id}" />
+				<div class="form-group">
+					<label>Tên Hình</label> <input type="text" class="form-control"
+						th:field="*{name}" th:errorclass="field-error" /> <em
+						th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></em>
+				</div>
+				<div class="form-group">
+					<label>Link Hình</label> <input type="text" class="form-control"
+						th:field="*{linkhinh}" />
+				</div>
+				<div class="form-group">
+					<label>Album:</label> <select class="form-control"
+						th:field="*{idnguon}">
+						<option th:each="nguon:${nguons}"
+							th:value="${nguon.id}" th:text="${nguon.name}"></option>
+					</select> <br />
+				</div>
+				<button type="submit" class="btn btn-primary">Lưu</button>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

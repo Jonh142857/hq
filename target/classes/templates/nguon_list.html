@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head"></head>
+<body>
+    <nav th:replace="layout :: header"></nav>
+
+    <div class="container main-content list">
+    	<div th:if="${success}" class="row alert alert-success alert-dismissible">
+	        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <span th:text="${success}"></span>
+	    </div>
+    	
+    	<th:block th:if="${#lists.isEmpty(nguons)}">
+		    <h3>Không có album nào</h3>
+		</th:block>
+		<h1 align="center">QUẢN LÝ ALBUM</h1>
+        <th:block th:unless="${#lists.isEmpty(nguons)}">
+            <div class="row">
+                <a th:href="@{/album/create}" class="btn btn-success pull-left">
+                	<span class="glyphicon glyphicon-plus"></span> Thêm album mới
+               	</a>
+                <form class="form-inline pull-right" action="#" th:action="@{/album/search}" method="GET">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="q" 
+                            placeholder="Tìm tên album" />
+                    </div>
+                    <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+                </form>
+            </div>
+            <div class="row">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Tên</th>
+                            <th>Mô Tả</th>
+                            <th>Sửa</th>
+                            <th>Xóa</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="nguon,iterStat : ${nguons}">
+                            <td th:text="${iterStat.count}"></td>
+                            <td th:text="${nguon.name}"></td>
+                            <td th:text="${nguon.mota}"></td>
+                            <td><a th:href="@{/album/{id}/edit(id=${nguon.id})}"><span class="glyphicon glyphicon-pencil"></span></a></td>
+                            <td><a th:href="@{/album/{id}/delete(id=${nguon.id})}"><span class="glyphicon glyphicon-trash"></span></a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </th:block>
+    </div>
+</body>
+</html>
